@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{ num }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                num: 10
+            },
+            // 간단한 연산에 적합하다.
+            computed: {
+                doubleNum(){
+                    return this.num * 2;
+                }
+            },
+            // 자주 일어나지 않는 무거운 로직에 적합하다.
+            watch: {
+                num(v, ov){
+                    this.fetchUserByNumber(v);
+                }
+            },
+            methods: {
+                fetchUserByNumber(v){
+                    console.log(v);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
