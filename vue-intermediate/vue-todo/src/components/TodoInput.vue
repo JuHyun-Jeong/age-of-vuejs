@@ -4,31 +4,43 @@
     <span class="addContainer" @click="addTodo">
       <i class="fas fa-plus"></i>
     </span>
+    <modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">
+        경고
+        <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
+      </h3>
+      <div slot="body">
+        아무것도 입력하지 않았습니다.
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from "@/components/common/Modal";
+
 export default {
   data(){
     return {
       newTodoItem : "",
+      showModal: false,
     }
   },
   methods: {
     addTodo(){
       if (this.newTodoItem !== ''){
-        // 저장하는 로직
-        let obj = {
-          completed: false,
-          item: this.newTodoItem
-        }
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
+      } else {
+        this.showModal = !this.showModal;
       }
     },
     clearInput(){
       this.newTodoItem = '';
     }
+  },
+  components: {
+    'modal': Modal
   }
 }
 </script>
@@ -57,5 +69,8 @@ input:focus {
 .addBtn {
   color: white;
   vertical-align: middle;
+}
+.closeModalBtn {
+  color: #42b983;
 }
 </style>
