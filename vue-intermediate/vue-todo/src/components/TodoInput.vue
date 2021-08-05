@@ -18,6 +18,7 @@
 
 <script>
 import Modal from "@/components/common/Modal";
+import {mapMutations} from 'vuex';
 
 export default {
   data(){
@@ -27,9 +28,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      addOneItem: 'addOneItem',
+    }),
     addTodo(){
       if (this.newTodoItem !== ''){
-        this.$emit('addTodoItem', this.newTodoItem);
+        this.addOneItem(this.newTodoItem);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
